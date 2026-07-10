@@ -1,0 +1,54 @@
+:root {
+  --navy: #0D2545;
+  --navy-mid: #1A3A6B;
+  --navy-light: #E8EFF8;
+  --gold: #C9A84C;
+  --gold-light: #F5EDD6;
+  --white: #FFFFFF;
+  --off-white: #F9FAFB;
+  --text: #0D2545;
+  --text-muted: #5A6E8A;
+  --border: #D8E2F0;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--sans); background: var(--white); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 1.25rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+nav a { color: var(--navy); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+nav a:hover { color: var(--gold); }
+.nav-logo { font-family: var(--serif); font-size: 1rem; color: var(--navy); font-weight: 700; }
+section { padding: 3rem 1.25rem; }
+section + section { border-top: 1px solid var(--border); }
+.section-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.4rem; }
+.section-title { font-family: var(--serif); font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--navy); margin-bottom: 0.35rem; line-height: 1.25; }
+.section-tagline { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.75rem; font-weight: 300; }
+.gold-divider { width: 40px; height: 2px; background: var(--gold); margin-bottom: 1.75rem; }
+.era-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); margin-top: 1.5rem; }
+.photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 0.5rem; margin-bottom: 1.5rem; }
+.photo-slot { background: var(--navy-light); border: 1.5px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.72rem; text-align: center; padding: 0.5rem; overflow: hidden; min-height: 80px; }
+.photo-slot img { width: 100%; height: auto; border-radius: 6px; display: block; object-fit: unset; }
+.photo-slot.wide { aspect-ratio: 16/9; grid-column: span 2; }
+.names-block { font-family: var(--serif); font-size: 1.05rem; color: var(--navy-mid); line-height: 2.2; text-align: center; margin-bottom: 2rem; }
+.names-block .dot { color: var(--gold); margin: 0 0.5rem; }
+.quote-strip { background: var(--gold-light); border-left: 4px solid var(--gold); border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin-bottom: 0.85rem; }
+.quote-strip p { font-family: var(--serif); font-size: 1rem; color: var(--navy); line-height: 1.6; margin-bottom: 0.3rem; }
+.quote-strip .from { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 600; font-family: var(--sans); }
+.darren-says { background: var(--navy-light); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 0.85rem; display: flex; gap: 0.9rem; align-items: flex-start; }
+.darren-says .d-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); font-weight: 700; flex-shrink: 0; padding-top: 0.15rem; min-width: 3.5rem; }
+.darren-says p { font-size: 0.95rem; color: var(--navy); }
+.message-card { background: var(--navy); color: white; border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; }
+.message-card .quote-mark { font-family: var(--serif); font-size: 3rem; color: var(--gold); opacity: 0.35; line-height: 0.8; margin-bottom: 0.5rem; display: block; }
+.message-card p { font-family: var(--serif); font-size: 1.05rem; color: rgba(255,255,255,0.88); line-height: 1.75; margin-bottom: 0.75rem; }
+.message-card .sig { font-family: var(--serif); color: var(--gold); font-size: 1.1rem; }
+.letter-body p { font-family: var(--serif); font-size: 1.05rem; line-height: 1.85; color: rgba(255,255,255,0.85); margin-bottom: 1.25rem; }
+.letter-sig { font-family: var(--serif); font-size: 1.25rem; color: var(--gold); margin-top: 2rem; }
+footer { background: var(--navy); padding: 2rem 1.5rem; text-align: center; border-top: 2px solid var(--gold); }
+footer a { color: var(--gold); text-decoration: none; font-size: 0.9rem; }
+footer .meta { color: rgba(255,255,255,0.4); font-size: 0.8rem; margin-top: 0.5rem; }
+.hero { background: var(--navy); padding: 4rem 1.5rem 3rem; text-align: center; }
+.hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; font-weight: 500; }
+.hero h1 { font-family: var(--serif); font-size: clamp(2rem, 8vw, 3.5rem); color: var(--gold); line-height: 1.1; margin-bottom: 0.5rem; }
+.hero .tagline { color: rgba(255,255,255,0.55); font-size: 1rem; font-weight: 300; }
+.hero-photo { width: 100%; max-width: 500px; aspect-ratio: 16/9; background: rgba(255,255,255,0.05); border: 1.5px dashed rgba(201,168,76,0.35); border-radius: 12px; margin: 2rem auto 0; display: flex; align-items: center; justify-content: center; color: rgba(201,168,76,0.45); font-size: 0.82rem; padding: 1rem; }
+@media (min-width: 600px) { .photo-grid { grid-template-columns: repeat(3, 1fr); } .photo-slot.wide { grid-column: span 3; } }
