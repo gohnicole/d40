@@ -78,7 +78,7 @@ footer .meta { color: rgba(255,255,255,0.4); font-size: 0.8rem; margin-top: 0.5r
 .hero-eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; font-weight: 500; }
 .hero h1 { font-family: var(--serif); font-size: clamp(2rem, 8vw, 3.5rem); color: var(--gold); line-height: 1.1; margin-bottom: 0.5rem; }
 .hero .tagline { color: rgba(255,255,255,0.55); font-size: 1rem; font-weight: 300; }
-.hero-photo { width: 100%; max-width: 500px; background: rgba(255,255,255,0.05); border: 1.5px dashed rgba(201,168,76,0.35); border-radius: 12px; margin: 2rem auto 0; display: flex; align-items: center; justify-content: center; color: rgba(201,168,76,0.45); font-size: 0.82rem; padding: 1rem; }
+.hero-photo { width: 100%; max-width: 500px; margin: 2rem auto 0; border-radius: 12px; overflow: hidden; display: block; }
 @media (min-width: 600px) { .photo-grid { grid-template-columns: repeat(3, 1fr); } .photo-slot.wide { grid-column: span 3; } }
 
 
