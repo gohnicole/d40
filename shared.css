@@ -14,10 +14,38 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: var(--sans); background: var(--white); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 1.25rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
-nav a { color: var(--navy); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
-nav a:hover { color: var(--gold); }
-.nav-logo { font-family: var(--serif); font-size: 1rem; color: var(--navy); font-weight: 700; }
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--navy); border-bottom: 1px solid rgba(201,168,76,0.2);
+  display: flex; flex-direction: column;
+}
+.nav-home {
+  font-family: var(--serif); font-size: 0.95rem; color: var(--gold);
+  text-decoration: none; font-weight: 700;
+  padding: 0.6rem 1.25rem 0.4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: block;
+}
+.nav-links {
+  display: flex; overflow-x: auto; gap: 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  color: rgba(255,255,255,0.65); text-decoration: none;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.03em;
+  white-space: nowrap; padding: 0.55rem 1rem;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+.nav-links a:hover { color: var(--gold); background: rgba(255,255,255,0.04); }
+@media (min-width: 700px) {
+  .site-nav { flex-direction: row; align-items: center; height: 52px; }
+  .nav-home { padding: 0 1.25rem; border-bottom: none; border-right: 1px solid rgba(255,255,255,0.1); }
+  .nav-links a { font-size: 0.78rem; padding: 0 1rem; line-height: 52px; }
+}
 section { padding: 3rem 1.25rem; }
 section + section { border-top: 1px solid var(--border); }
 .section-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.4rem; }
