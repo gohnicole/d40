@@ -104,7 +104,7 @@
   <p class="hero-eyebrow">18 July 2026</p>
   <h1>Darren<br>at 40</h1>
   <div style="width:100%;max-width:500px;margin:2rem auto 0;cursor:pointer;border-radius:12px;overflow:hidden;background:#0D2545;" onclick="openHero('Hero_Index.png')"><img src="Hero_Index.png" alt="" style="width:100%;height:auto;display:block;"></div>
-  <p class="hero-date" style="color:rgba(255,255,255,0.6);font-size:1rem;margin-top:1.25rem;">Surprised? Good. Not surprised? Pretend leh.</p>
+  <p class="hero-date" style="color:rgba(255,255,255,0.6);font-size:1rem;margin-top:1.25rem;">Surprised? Good.<br>Not surprised? Pretend leh.</p>
 </section>
 
 <!-- CHAPTERS -->
@@ -399,6 +399,7 @@
   <div class="comment-form">
     <input type="text" id="c-name" placeholder="Your name" maxlength="60">
     <textarea id="c-text" placeholder="Write something for Darren…" maxlength="500"></textarea>
+    <input type="number" id="c-pin" placeholder="Set a 4-digit PIN (to edit or delete later)" min="1000" max="9999" style="letter-spacing:0.15em;">
     <button onclick="submitComment()" id="c-btn">Send message</button>
     <p class="status-msg" id="c-status"></p>
   </div>
@@ -461,17 +462,31 @@ async function loadComments() {
   const list = document.getElementById('comments-list');
   const empty = document.getElementById('c-empty');
   try {
-    const data = await supaFetch('/rest/v1/comments?order=created_at.desc&select=*');
+    const data = await supaFetch('/rest/v1/comments?order=created_at.desc&select=id,name,message,created_at');
     Array.from(list.querySelectorAll('.comment-item')).forEach(el => el.remove());
     if (!data.length) { empty.style.display = 'block'; return; }
     empty.style.display = 'none';
     data.forEach(c => {
       const div = document.createElement('div');
       div.className = 'comment-item';
+      div.dataset.id = c.id;
       div.innerHTML =
         '<p class="c-name">' + escHtml(c.name) + '</p>' +
-        '<p class="c-text">' + escHtml(c.message) + '</p>' +
-        '<div class="c-meta"><span>' + formatTime(c.created_at) + '</span></div>';
+        '<p class="c-text" id="ctxt-' + c.id + '">' + escHtml(c.message) + '</p>' +
+        '<div class="c-meta">' +
+          '<span>' + formatTime(c.created_at) + '</span>' +
+          '<button onclick="showEditDelete('' + c.id + '')">Edit / Delete</button>' +
+        '</div>' +
+        '<div class="c-actions" id="cact-' + c.id + '" style="display:none;margin-top:0.75rem;">' +
+          '<input type="number" placeholder="Enter your PIN" min="1000" max="9999" id="cpin-' + c.id + '" style="width:100%;padding:0.6rem 0.8rem;border:1px solid var(--border);border-radius:6px;font-family:var(--sans);font-size:0.9rem;margin-bottom:0.5rem;">' +
+          '<textarea id="cedit-' + c.id + '" style="width:100%;padding:0.6rem 0.8rem;border:1px solid var(--border);border-radius:6px;font-family:var(--sans);font-size:0.9rem;min-height:70px;resize:vertical;margin-bottom:0.5rem;">' + escHtml(c.message) + '</textarea>' +
+          '<div style="display:flex;gap:0.5rem;">' +
+            '<button onclick="saveEdit('' + c.id + '')" style="flex:1;background:var(--navy);color:white;border:none;border-radius:6px;padding:0.6rem;font-size:0.85rem;cursor:pointer;font-family:var(--sans);">Save</button>' +
+            '<button onclick="deleteComment('' + c.id + '')" style="flex:1;background:#c0392b;color:white;border:none;border-radius:6px;padding:0.6rem;font-size:0.85rem;cursor:pointer;font-family:var(--sans);">Delete</button>' +
+            '<button onclick="cancelEdit('' + c.id + '')" style="flex:1;background:var(--border);color:var(--navy);border:none;border-radius:6px;padding:0.6rem;font-size:0.85rem;cursor:pointer;font-family:var(--sans);">Cancel</button>' +
+          '</div>' +
+          '<p class="c-pin-err" id="cperr-' + c.id + '" style="color:#c0392b;font-size:0.8rem;margin-top:0.4rem;"></p>' +
+        '</div>';
       list.appendChild(div);
     });
   } catch(e) {
@@ -479,22 +494,74 @@ async function loadComments() {
     empty.style.display = 'block';
   }
 }
+function showEditDelete(id) {
+  const act = document.getElementById('cact-' + id);
+  act.style.display = act.style.display === 'none' ? 'block' : 'none';
+}
+function cancelEdit(id) {
+  document.getElementById('cact-' + id).style.display = 'none';
+  document.getElementById('cperr-' + id).textContent = '';
+}
+async function saveEdit(id) {
+  const pin = document.getElementById('cpin-' + id).value.trim();
+  const newText = document.getElementById('cedit-' + id).value.trim();
+  const errEl = document.getElementById('cperr-' + id);
+  if (!pin || pin.length !== 4) { errEl.textContent = 'Please enter your 4-digit PIN.'; return; }
+  if (!newText) { errEl.textContent = 'Message cannot be empty.'; return; }
+  try {
+    const res = await supaFetch('/rest/v1/comments?id=eq.' + id + '&pin=eq.' + pin, {
+      method: 'PATCH',
+      body: JSON.stringify({ message: newText })
+    });
+    if (!res || res.length === 0) {
+      errEl.textContent = 'Wrong PIN. Please try again.';
+      return;
+    }
+    errEl.textContent = '';
+    cancelEdit(id);
+    await loadComments();
+  } catch(e) {
+    errEl.textContent = 'Something went wrong. Please try again.';
+  }
+}
+async function deleteComment(id) {
+  const pin = document.getElementById('cpin-' + id).value.trim();
+  const errEl = document.getElementById('cperr-' + id);
+  if (!pin || pin.length !== 4) { errEl.textContent = 'Please enter your 4-digit PIN.'; return; }
+  if (!confirm('Delete this message?')) return;
+  try {
+    const res = await supaFetch('/rest/v1/comments?id=eq.' + id + '&pin=eq.' + pin, {
+      method: 'DELETE',
+      headers: { 'Prefer': 'return=representation' }
+    });
+    if (res && res.length === 0) {
+      errEl.textContent = 'Wrong PIN. Please try again.';
+      return;
+    }
+    await loadComments();
+  } catch(e) {
+    errEl.textContent = 'Something went wrong. Please try again.';
+  }
+}
 async function submitComment() {
   const name = document.getElementById('c-name').value.trim();
   const message = document.getElementById('c-text').value.trim();
+  const pin = document.getElementById('c-pin').value.trim();
   const status = document.getElementById('c-status');
   const btn = document.getElementById('c-btn');
   if (!name) { status.textContent = 'Please enter your name.'; return; }
   if (!message) { status.textContent = 'Please write something first.'; return; }
+  if (!pin || pin.length !== 4) { status.textContent = 'Please set a 4-digit PIN so you can edit later.'; return; }
   btn.disabled = true;
   status.textContent = 'Sending…';
   try {
     await supaFetch('/rest/v1/comments', {
       method: 'POST',
-      body: JSON.stringify({ name, message })
+      body: JSON.stringify({ name, message, pin: parseInt(pin) })
     });
     document.getElementById('c-name').value = '';
     document.getElementById('c-text').value = '';
+    document.getElementById('c-pin').value = '';
     status.textContent = 'Message sent!';
     setTimeout(() => { status.textContent = ''; }, 3000);
     await loadComments();
