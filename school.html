@@ -30,16 +30,17 @@
   .gallery-grid { grid-template-columns: repeat(4, 1fr); }
 }
 .gallery-thumb {
+  aspect-ratio: 1;
   overflow: hidden;
   cursor: pointer;
   background: var(--navy-light);
 }
 .gallery-thumb img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
   transition: transform 0.2s;
-  loading: lazy;
 }
 .gallery-thumb:hover img { transform: scale(1.02); }
 .lightbox {
@@ -76,12 +77,12 @@
 <nav class="site-nav" id="top">
   <a href="index.html" class="nav-home">Darren at 40</a>
   <div class="nav-links">
-    <a href="index.html#chapters">| Chapters |</a>
-    <a href="index.html#impressions">First Impressions |</a>
-    <a href="index.html#memories">Fond Memories |</a>
-    <a href="index.html#wisdom">Words of Wisdom |</a>
-    <a href="index.html#wishes">Birthday Wishes |</a>
-    <a href="index.html#message">Leave a Message |</a>
+    <a href="index.html#chapters">Chapters</a>
+    <a href="index.html#impressions">First Impressions</a>
+    <a href="index.html#memories">Fond Memories</a>
+    <a href="index.html#wisdom">Words of Wisdom</a>
+    <a href="index.html#wishes">Birthday Wishes</a>
+    <a href="index.html#message">Leave a Message</a>
   </div>
 </nav>
 
@@ -91,65 +92,17 @@
   <p class="tagline">The ones who knew him way back.</p>
   <div class="hero-duo">
     <div>
-      <div class="hero-duo-slot" style="padding:0;"><img src="Hero_Pri.jpeg" alt="Primary school" style="width:100%;height:auto;display:block;border-radius:8px;"></div>
+      <div class="hero-duo-slot" style="padding:0;cursor:pointer;" onclick="openHero('Hero_Pri.jpeg')"><img src="Hero_Pri.jpeg" alt="Primary school" style="width:100%;height:auto;display:block;border-radius:8px;"></div>
       <p class="hero-duo-label">Primary school</p>
     </div>
     <div>
-      <div class="hero-duo-slot" style="padding:0;"><img src="Hero_Zelva.jpg" alt="Team Zelva" style="width:100%;height:auto;display:block;border-radius:8px;"></div>
+      <div class="hero-duo-slot" style="padding:0;cursor:pointer;" onclick="openHero('Hero_Zelva.jpg')"><img src="Hero_Zelva.jpg" alt="Team Zelva" style="width:100%;height:auto;display:block;border-radius:8px;"></div>
       <p class="hero-duo-label">Zelva</p>
     </div>
   </div>
 </section>
 
-<section>
-  <p class="darren-words-title">In Darren's own words</p>
-  <p class="darren-words-sub">Collected in conversations over the years</p>
-  <div class="gold-divider"></div>
 
-  <span class="group-label">Zelva</span>
-  <div class="darren-says">
-    <span class="d-label">On Kenneth</span>
-    <p>His most defining traits: loyal, humorous, optimistic.</p>
-  </div>
-  <div class="darren-says">
-    <span class="d-label">On You Xiang</span>
-    <p>Looks like an ultra-introvert, but to the people he's close to, he's warm and funny.</p>
-  </div>
-  <div class="darren-says">
-    <span class="d-label">On Wai Kien</span>
-    <p>Very smart and well-read.</p>
-  </div>
-  <div class="darren-says">
-    <span class="d-label">On Chee Kit</span>
-    <p>Responsible and well-intentioned. Very gentle.</p>
-  </div>
-  <div class="darren-says">
-    <span class="d-label">On Shang</span>
-    <p>You will never hear the word "no" from him. Unless it's "no problem".</p>
-  </div>
-  <div class="darren-says">
-    <span class="d-label">On ZM</span>
-    <p>His only flaw is that he supports Man U.</p>
-  </div>
-
-  <span class="group-label" style="margin-top:1.5rem;">Primary school</span>
-  <div class="darren-says">
-    <span class="d-label">On Daryl</span>
-    <p>He's my oldest, bestest friend. Simple as that.</p>
-  </div>
-  <div class="darren-says">
-    <span class="d-label">On Deepan</span>
-    <p>Pan's a survivor. He's strong.</p>
-  </div>
-  <div class="darren-says">
-    <span class="d-label">On Zhong</span>
-    <p>One word. Legend.</p>
-  </div>
-  <div class="darren-says">
-    <span class="d-label">On Sebastian</span>
-    <p>If today's technology existed back then, he'd be internet famous.</p>
-  </div>
-</section>
 
 <section>
   <p class="section-label">Photos</p>
@@ -215,6 +168,56 @@
     <button class="lightbox-btn" onclick="closeLightbox()">✕ Close</button>
   </div>
 </div>
+
+<section>
+  <p class="darren-words-title">In Darren's own words</p>
+  <p class="darren-words-sub">Collected in conversations over the years</p>
+  <div class="gold-divider"></div>
+
+  <span class="group-label">Zelva</span>
+  <div class="darren-says">
+    <span class="d-label">On Kenneth</span>
+    <p>His most defining traits: loyal, humorous, optimistic.</p>
+  </div>
+  <div class="darren-says">
+    <span class="d-label">On You Xiang</span>
+    <p>Looks like an ultra-introvert, but to the people he's close to, he's warm and funny.</p>
+  </div>
+  <div class="darren-says">
+    <span class="d-label">On Wai Kien</span>
+    <p>Very smart and well-read.</p>
+  </div>
+  <div class="darren-says">
+    <span class="d-label">On Chee Kit</span>
+    <p>Responsible and well-intentioned. Very gentle.</p>
+  </div>
+  <div class="darren-says">
+    <span class="d-label">On Shang</span>
+    <p>You will never hear the word "no" from him. Unless it's "no problem".</p>
+  </div>
+  <div class="darren-says">
+    <span class="d-label">On ZM</span>
+    <p>His only flaw is that he supports Man U.</p>
+  </div>
+
+  <span class="group-label" style="margin-top:1.5rem;">Primary school</span>
+  <div class="darren-says">
+    <span class="d-label">On Daryl</span>
+    <p>He's my oldest, bestest friend. Simple as that.</p>
+  </div>
+  <div class="darren-says">
+    <span class="d-label">On Deepan</span>
+    <p>Pan's a survivor. He's strong.</p>
+  </div>
+  <div class="darren-says">
+    <span class="d-label">On Zhong</span>
+    <p>One word. Legend.</p>
+  </div>
+  <div class="darren-says">
+    <span class="d-label">On Sebastian</span>
+    <p>If today's technology existed back then, he'd be internet famous.</p>
+  </div>
+</section>
 
 <footer>
   <a href="index.html">← Back to Darren at 40</a>

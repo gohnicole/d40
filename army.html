@@ -25,16 +25,17 @@
   .gallery-grid { grid-template-columns: repeat(4, 1fr); }
 }
 .gallery-thumb {
+  aspect-ratio: 1;
   overflow: hidden;
   cursor: pointer;
   background: var(--navy-light);
 }
 .gallery-thumb img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
   transition: transform 0.2s;
-  loading: lazy;
 }
 .gallery-thumb:hover img { transform: scale(1.02); }
 .lightbox {
@@ -71,12 +72,12 @@
 <nav class="site-nav" id="top">
   <a href="index.html" class="nav-home">Darren at 40</a>
   <div class="nav-links">
-    <a href="index.html#chapters">| Chapters |</a>
-    <a href="index.html#impressions">First Impressions |</a>
-    <a href="index.html#memories">Fond Memories |</a>
-    <a href="index.html#wisdom">Words of Wisdom |</a>
-    <a href="index.html#wishes">Birthday Wishes |</a>
-    <a href="index.html#message">Leave a Message |</a>
+    <a href="index.html#chapters">Chapters</a>
+    <a href="index.html#impressions">First Impressions</a>
+    <a href="index.html#memories">Fond Memories</a>
+    <a href="index.html#wisdom">Words of Wisdom</a>
+    <a href="index.html#wishes">Birthday Wishes</a>
+    <a href="index.html#message">Leave a Message</a>
   </div>
 </nav>
 
@@ -84,7 +85,7 @@
   <p class="hero-eyebrow">NS Days</p>
   <h1>Ah Boys<br>to Appas</h1>
   <p class="tagline">Wearing the uniform made them brothers. Having kids made them fathers.</p>
-  <div class="hero-photo" style="padding:0;overflow:hidden;"><img src="Hero_NS.jpeg" alt="" style="width:100%;height:auto;display:block;border-radius:12px;"></div>
+  <div class="hero-photo" style="padding:0;overflow:hidden;cursor:pointer;" onclick="openHero('Hero_NS.jpeg')"><img src="Hero_NS.jpeg" alt="" style="width:100%;height:auto;display:block;border-radius:12px;"></div>
 </section>
 
 <section>

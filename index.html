@@ -77,6 +77,12 @@
   .messages-grid { display: grid; grid-template-columns: 1fr 1fr; }
   .wishes-grid { display: grid; grid-template-columns: 1fr 1fr; }
 }
+.lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.96); z-index:999; flex-direction:column; align-items:center; justify-content:center; }
+.lightbox.active { display:flex; }
+.lightbox-img-wrap { width:100%; flex:1; display:flex; align-items:center; justify-content:center; padding:0.5rem; overflow:hidden; }
+.lightbox-img-wrap img { max-width:100%; max-height:100%; object-fit:contain; border-radius:4px; display:block; }
+.lightbox-controls { width:100%; display:flex; align-items:center; justify-content:flex-end; padding:0.75rem 1rem; background:rgba(0,0,0,0.5); }
+.lightbox-btn { background:none; border:none; color:white; cursor:pointer; padding:0.5rem 0.75rem; font-family:var(--sans); font-size:0.9rem; font-weight:600; }
 </style>
 </head>
 <body>
@@ -84,20 +90,21 @@
 <nav class="site-nav" id="top">
   <a href="index.html" class="nav-home">Darren at 40</a>
   <div class="nav-links">
-    <a href="#chapters">| Chapters |</a>
-    <a href="#impressions">First Impressions |</a>
-    <a href="#memories">Fond Memories |</a>
-    <a href="#wisdom">Words of Wisdom |</a>
-    <a href="#wishes">Birthday Wishes |</a>
-    <a href="#message">Leave a Message |</a>
+    <a href="#chapters">Chapters</a>
+    <a href="#impressions">First Impressions</a>
+    <a href="#memories">Fond Memories</a>
+    <a href="#wisdom">Words of Wisdom</a>
+    <a href="#wishes">Birthday Wishes</a>
+    <a href="#message">Leave a Message</a>
   </div>
 </nav>
 
 <section class="hero">
   <p class="hero-eyebrow">18 July 2026</p>
   <h1>Darren<br>at 40</h1>
-  <p class="tagline">Surprised? Good. Not surprised? Pretend leh.</p>
-  <div class="hero-photo" style="padding:0;overflow:hidden;background:#0D2545;"><img src="Hero_Index.png" alt="" style="width:100%;height:auto;display:block;border-radius:12px;"></div>
+  <p class="tagline">D40. The Dao of Being Darren.</p>
+  <div class="hero-photo" style="padding:0;overflow:hidden;cursor:pointer;background:#0D2545;" onclick="openHero('Hero_Index.png')"><img src="Hero_Index.png" alt="" style="width:100%;height:auto;display:block;border-radius:12px;"></div>
+  <p class="hero-date" style="color:rgba(255,255,255,0.6);font-size:1rem;margin-top:1.25rem;">Surprised? Good. Not surprised? Pretend leh.</p>
 </section>
 
 <!-- CHAPTERS -->
@@ -122,7 +129,7 @@
     <a href="masscomm.html" class="chapter-card">
       <p class="era">Poly years</p>
       <h3>Mass Communications to Mass Consumption</h3>
-      <p>The toilet era. The floppy hair era. The board shorts era.</p>
+      <p>What started in a lecture theatre continues at a buffet table.</p>
       <span class="arrow">→</span>
     </a>
     <a href="army.html" class="chapter-card">
@@ -155,7 +162,7 @@
 <!-- FIRST IMPRESSIONS -->
 <section id="impressions">
   <p class="section-label">In their own words</p>
-  <h2 class="section-title">What they said when they first met him</h2>
+  <h2 class="section-title">What they thought when they first met him</h2>
   <p class="section-tagline">First impressions of one Darren, reported faithfully.</p>
   <div class="gold-divider"></div>
   <div class="messages-grid">
@@ -207,7 +214,7 @@
 <!-- MEMORIES -->
 <section id="memories" style="background:var(--off-white);">
   <p class="section-label">Fond memories</p>
-  <h2 class="section-title">The stories they still tell</h2>
+  <h2 class="section-title">The moments they still remember</h2>
   <p class="section-tagline">Specific, vivid, and very much Darren.</p>
   <div class="gold-divider"></div>
   <div class="messages-grid">
@@ -378,7 +385,7 @@
   <div class="letter-body">
     <p>The days are long, but the years are short. I'm lucky to have you next to me through it all. We still have a long way to walk together, so please take care of your plantar fasciitis.</p>
     <p>Happy 40th!</p>
-    <div class="letter-sig">With all my love,<br>Nicole, Matthew &amp; Liam</div>
+    <div class="letter-sig">Love, Nicole + Matthew &amp; Liam</div>
   </div>
 </section>
 
@@ -401,6 +408,14 @@
   </div>
 </section>
 
+<div class="lightbox" id="lightbox" onclick="closeLightbox()" style="cursor:pointer;">
+  <div class="lightbox-img-wrap"><img id="lightbox-img" src="" alt=""></div>
+  <div class="lightbox-controls">
+    <span></span>
+    <span class="lightbox-counter" id="lightbox-counter"></span>
+    <button class="lightbox-btn" onclick="closeLightbox()">✕ Close</button>
+  </div>
+</div>
 <footer>
   <a href="#" onclick="window.scrollTo(0,0);return false;">Back to top</a>
   <p class="meta">18 July 2026</p>
@@ -482,6 +497,20 @@ async function submitComment() {
 }
 loadComments();
 setInterval(loadComments, 30000);
+</script>
+<script>
+function openHero(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
 </script>
 </body>
 </html>
