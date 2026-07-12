@@ -134,20 +134,3 @@ footer .meta { color: rgba(255,255,255,0.4); font-size: 0.8rem; margin-top: 0.5r
 .lightbox-counter { color: rgba(255,255,255,0.5); font-size: 0.8rem; font-family: var(--sans); }
 .swipe-hint { color: rgba(255,255,255,0.3); font-size: 0.72rem; text-align: center; padding: 0.25rem; flex-shrink: 0; }
 .timeline-photo { width: 100%; border-radius: 10px; margin-top: 0.85rem; display: block; height: auto; }
-
-/* Hero image full-size lightbox */
-.hero-lightbox {
-  display: none;
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.96);
-  z-index: 1000;
-  align-items: center; justify-content: center;
-  cursor: pointer;
-  padding: 1rem;
-}
-.hero-lightbox.active { display: flex; }
-.hero-lightbox img {
-  max-width: 100%; max-height: 100%;
-  object-fit: contain; border-radius: 6px;
-  cursor: default;
-}
