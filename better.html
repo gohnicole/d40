@@ -18,6 +18,9 @@
 </style>
 </head>
 <body>
+<div class="hero-lightbox" id="hero-lightbox" onclick="closeHero()">
+  <img id="hero-lightbox-img" src="" alt="">
+</div>
 <nav class="site-nav" id="top">
   <a href="index.html" class="nav-home">Darren at 40</a>
   <div class="nav-links">
@@ -78,6 +81,9 @@
     <div class="gallery-thumb" onclick="openLightbox(29)"><img src="better-30.jpeg" loading="lazy" alt=""></div>
     <div class="gallery-thumb" onclick="openLightbox(30)"><img src="better-31.jpeg" loading="lazy" alt=""></div>
     <div class="gallery-thumb" onclick="openLightbox(31)"><img src="better-32.jpeg" loading="lazy" alt=""></div>
+    <div class="gallery-thumb" onclick="openLightbox(32)"><img src="better-33.jpeg" loading="lazy" alt=""></div>
+    <div class="gallery-thumb" onclick="openLightbox(33)"><img src="better-34.jpeg" loading="lazy" alt=""></div>
+    <div class="gallery-thumb" onclick="openLightbox(34)"><img src="better-35.jpeg" loading="lazy" alt=""></div>
   </div>
 </section>
 
@@ -133,6 +139,18 @@ document.getElementById('lightbox').addEventListener('touchend', e => {
   const diff = touchStartX - e.changedTouches[0].clientX;
   if (Math.abs(diff) > 50) { if (diff > 0) nextPhoto(); else prevPhoto(); }
 });
+</script>
+<script>
+function openHero(src) {
+  document.getElementById('hero-lightbox-img').src = src;
+  document.getElementById('hero-lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeHero() {
+  document.getElementById('hero-lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHero(); });
 </script>
 </body>
 </html>

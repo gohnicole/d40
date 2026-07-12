@@ -76,6 +76,9 @@
 </style>
 </head>
 <body>
+<div class="hero-lightbox" id="hero-lightbox" onclick="closeHero()">
+  <img id="hero-lightbox-img" src="" alt="">
+</div>
 <nav class="site-nav" id="top">
   <a href="index.html" class="nav-home">Darren at 40</a>
   <div class="nav-links">
@@ -135,18 +138,18 @@
     <div class="timeline-item">
       <p class="timeline-year">Matthew</p>
       <p class="timeline-event">Then there were three</p>
-      <img src="matthew.jpeg" alt="Matthew arrives" class="timeline-photo" onclick="openHero(\'matthew.jpeg\')" style="cursor:pointer;">
+      <img src="matthew.jpeg" alt="Matthew arrives" class="timeline-photo" onclick="openHero('matthew.jpeg')" style="cursor:pointer;">
     </div>
     <div class="timeline-item">
       <p class="timeline-year">Liam</p>
       <p class="timeline-event">And then there were four</p>
-      <img src="liam.jpeg" alt="Liam arrives" class="timeline-photo" onclick="openHero(\'liam.jpeg\')" style="cursor:pointer;">
+      <img src="liam.jpeg" alt="Liam arrives" class="timeline-photo" onclick="openHero('liam.jpeg')" style="cursor:pointer;">
     </div>
     <div class="timeline-item">
       <p class="timeline-year">18 July 2026</p>
       <p class="timeline-event">Darren turns 40</p>
       <p class="timeline-note">And all of them showed up.</p>
-      <img src="allofus.jpeg" alt="The family today" class="timeline-photo" onclick="openHero(\'allofus.jpeg\')" style="cursor:pointer;">
+      <img src="allofus.jpeg" alt="The family today" class="timeline-photo" onclick="openHero('allofus.jpeg')" style="cursor:pointer;">
     </div>
   </div>
 </section>
@@ -227,6 +230,9 @@
     <div class="gallery-thumb" onclick="openLightbox(65)"><img src="us-66.jpeg" loading="lazy" alt=""></div>
     <div class="gallery-thumb" onclick="openLightbox(66)"><img src="us-67.jpeg" loading="lazy" alt=""></div>
     <div class="gallery-thumb" onclick="openLightbox(67)"><img src="us-68.jpeg" loading="lazy" alt=""></div>
+    <div class="gallery-thumb" onclick="openLightbox(68)"><img src="us-69.jpeg" loading="lazy" alt=""></div>
+    <div class="gallery-thumb" onclick="openLightbox(69)"><img src="Us-70.jpeg" loading="lazy" alt=""></div>
+    <div class="gallery-thumb" onclick="openLightbox(70)"><img src="us-71.jpeg" loading="lazy" alt=""></div>
   </div>
 </section>
 
@@ -276,6 +282,18 @@ document.getElementById('lightbox').addEventListener('touchend', e => {
   const diff = touchStartX - e.changedTouches[0].clientX;
   if (Math.abs(diff) > 50) { if (diff > 0) nextPhoto(); else prevPhoto(); }
 });
+</script>
+<script>
+function openHero(src) {
+  document.getElementById('hero-lightbox-img').src = src;
+  document.getElementById('hero-lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeHero() {
+  document.getElementById('hero-lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHero(); });
 </script>
 </body>
 </html>
